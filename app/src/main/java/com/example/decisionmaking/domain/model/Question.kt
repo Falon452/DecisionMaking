@@ -1,8 +1,11 @@
 package com.example.decisionmaking.domain.model
 
 data class Question(
-    val row: Int,
-    val column: Int,
+    val firstItemId: Int,
+    val secondItemId: Int,
     val tableNumber: Int,
-    val question: String,
-)
+    val questionText: String,
+    val questionTarget: QuestionTarget
+){
+    public fun createAnswer(value:Int): Answer = Answer(value,this.firstItemId,this.secondItemId,this.tableNumber,this.questionTarget)
+}
