@@ -18,12 +18,7 @@ object Injector {
             modelClass: Class<T>,
             extras: CreationExtras
         ): T {
-            return InputViewModel(
-                addItemUseCase = domainDI.provideAddItemUseCase(),
-                getItemsUseCase = domainDI.provideGetItemUseCase(),
-                getBestBikeButtonUseCase = domainDI.provideGetBestBikeButtonUseCase()
-            ) as T
-        }
+            return InputViewModel(repo = dataDI.provideRepository()) as T }
     }
 
 

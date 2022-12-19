@@ -3,32 +3,31 @@ package com.example.decisionmaking.presentation.input.adapter
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import com.example.decisionmaking.databinding.ItemBinding
-import com.example.decisionmaking.domain.model.Item
+import com.example.decisionmaking.domain.model.Bike
 import com.example.decisionmaking.presentation.util.BaseViewHolder
 import com.example.decisionmaking.presentation.util.BindingViewHolder
 import com.example.decisionmaking.presentation.util.ItemDiffer
 
-class InputAdapter: ListAdapter<Item, BaseViewHolder<Item>>(
-    ItemDiffer(Item::name)
+class InputAdapter: ListAdapter<Bike, BaseViewHolder<Bike>>(
+    ItemDiffer(Bike::id)
 ) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Item> =
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Bike> =
         ItemViewHolder(parent)
 
 
-    override fun onBindViewHolder(holder: BaseViewHolder<Item>, position: Int) {
+    override fun onBindViewHolder(holder: BaseViewHolder<Bike>, position: Int) {
         holder.bind(getItem(position))
     }
 
     inner class ItemViewHolder(parent: ViewGroup) :
-        BindingViewHolder<Item, ItemBinding>(
+        BindingViewHolder<Bike, ItemBinding>(
             ItemBinding::inflate,
             parent
         ) {
 
-        override fun ItemBinding.bind(item: Item) {
+        override fun ItemBinding.bind(item: Bike) {
             with(item) {
-                nameTextView.text = item.name
-                typeTextView.text = item.bikeType.name
+                nameTextView.text = item.id.toString()
             }
         }
     }

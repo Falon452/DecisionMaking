@@ -1,10 +1,17 @@
 package com.example.decisionmaking.domain.interactor
 
-import com.example.decisionmaking.domain.model.Item
+import com.example.decisionmaking.domain.model.Answer
+import com.example.decisionmaking.domain.model.Bike
+
 
 interface Repository {
 
-    fun getItems(): List<Item>
+    fun addBikes(bikes: List<Bike>)
 
-    fun addItem(item: Item)
+    fun getBikes(): List<Bike>?
+
+    fun getAnswers(): List<Answer>?
+
+    fun addAnswers(answers: List<Answer>)
 }
+

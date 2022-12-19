@@ -1,7 +1,6 @@
 package com.example.decisionmaking.data
 
 import com.example.decisionmaking.domain.model.BikeType
-import com.example.decisionmaking.domain.model.Item
 
 
 val emptyItems = emptyList<Item>()
