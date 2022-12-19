@@ -54,11 +54,11 @@ class InputFragment : Fragment(R.layout.fragment_input) {
     }
 
     private fun setObservers() {
-        viewModel.viewState.observe(viewLifecycleOwner) {
+//        viewModel.viewState.observe(viewLifecycleOwner) {
 //            recyclerAdapter.submitList(it.items)
 //            binding.bestItem.nameTextView.text = it.bestItem?.name
 //            binding.bestItem.typeTextView.text = it.bestItem?.bikeType?.name
-        }
+//        }
     }
 
     private fun setListeners() {
