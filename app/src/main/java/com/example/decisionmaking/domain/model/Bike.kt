@@ -2,7 +2,8 @@ package com.example.decisionmaking.domain.model
 
 data class Bike(
     val id: Int,
-    val weight: Int,
+    val weight: String,
     val name: String,
-    val features: Map<Features,String>
+    val numberOfGears: String,
+    val price: String,
 )

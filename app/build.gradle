@@ -1,7 +1,18 @@
+buildscript {
+    repositories {
+        google()
+    }
+    dependencies {
+        def nav_version = "2.5.3"
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:$nav_version")
+    }
+}
+
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
 }
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     namespace 'com.example.decisionmaking'
@@ -49,4 +60,6 @@ dependencies {
 
     // live data transformations
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+
+
 }

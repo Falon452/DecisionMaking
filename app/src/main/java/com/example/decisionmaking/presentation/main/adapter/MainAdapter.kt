@@ -1,14 +1,19 @@
-package com.example.decisionmaking.presentation.input.adapter
+package com.example.decisionmaking.presentation.main.adapter
 
 import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.recyclerview.widget.ListAdapter
+import com.example.decisionmaking.R
 import com.example.decisionmaking.databinding.ItemBinding
 import com.example.decisionmaking.domain.model.Bike
 import com.example.decisionmaking.presentation.util.BaseViewHolder
 import com.example.decisionmaking.presentation.util.BindingViewHolder
 import com.example.decisionmaking.presentation.util.ItemDiffer
 
-class InputAdapter: ListAdapter<Bike, BaseViewHolder<Bike>>(
+class MainAdapter: ListAdapter<Bike, BaseViewHolder<Bike>>(
     ItemDiffer(Bike::id)
 ) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder<Bike> =
@@ -19,7 +24,7 @@ class InputAdapter: ListAdapter<Bike, BaseViewHolder<Bike>>(
         holder.bind(getItem(position))
     }
 
-    inner class ItemViewHolder(parent: ViewGroup) :
+    inner class ItemViewHolder(private val parent: ViewGroup) :
         BindingViewHolder<Bike, ItemBinding>(
             ItemBinding::inflate,
             parent
@@ -27,7 +32,10 @@ class InputAdapter: ListAdapter<Bike, BaseViewHolder<Bike>>(
 
         override fun ItemBinding.bind(item: Bike) {
             with(item) {
-                nameTextView.text = item.id.toString()
+                nameTextView.text = name
+                priceTextView.text = price
+                weightTextView.text = weight
+                gearsTextView.text = numberOfGears
             }
         }
     }

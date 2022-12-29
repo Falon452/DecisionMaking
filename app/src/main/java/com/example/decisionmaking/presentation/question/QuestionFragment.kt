@@ -1,32 +1,50 @@
 package com.example.decisionmaking.presentation.question
 
 import android.os.Bundle
+import android.provider.ContactsContract.Data
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.decisionmaking.R
 import com.example.decisionmaking.databinding.FragmentQuestionBinding
+import com.example.decisionmaking.di.DataDI
+import com.example.decisionmaking.presentation.question.viewmodel.QuestionContract
+import com.example.decisionmaking.presentation.question.viewmodel.QuestionContract.QuestionView
+import com.example.decisionmaking.presentation.question.viewmodel.QuestionPresenter
 import com.example.decisionmaking.presentation.util.viewBinding
+import java.time.Duration
 
-class QuestionFragment : Fragment(R.layout.fragment_question) {
+class QuestionFragment : Fragment(R.layout.fragment_question), QuestionView {
 
     private val binding by viewBinding(FragmentQuestionBinding::bind)
+    private val presenter: QuestionContract.QuestionPresenter = QuestionPresenter(
+        DataDI.repo
+    )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.scale.setOnCheckedChangeListener { radiogroup, id ->
-            when(id) {
-                binding.scale1.id -> println("scale1")
-                binding.scale2.id -> println("scale2")
-                binding.scale3.id -> println("scale3")
-                binding.scale4.id -> println("scale4")
-                binding.scale5.id -> println("scale5")
-                binding.scale6.id -> println("scale6")
-                binding.scale7.id -> println("scale7")
-                binding.scale8.id -> println("scale8")
-                binding.scale9.id -> println("scale9")
-                binding.scale10.id -> println("scale10")
-            }
 
+        binding.nextQuestionButton.setOnClickListener {
+            presenter.onNextQuestionClicked(binding)
         }
+        presenter.setView(this)
     }
+
+    override fun setNewQuestion(text: String) {
+        binding.question.setText(text)
+    }
+
+    override fun showToast(text: String) {
+        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun unCheckAllRadioButtons() {
+        binding.radioGroup.clearCheck()
+    }
+
+    override fun navigateToResult() {
+        findNavController().navigate(QuestionFragmentDirections.navigateToResult())
+    }
+
 }
