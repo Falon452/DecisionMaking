@@ -30,26 +30,7 @@ class ResultPresenter(private val repo: Repository) : ResultPresenter {
         val answers = repo.getAnswers().orEmpty()
         val scores = calculator.calculate(answers)
         view.setResults(
-            listOf(
-                Score(
-                    Bike(
-                        id = 0,
-                        weight = "",
-                        name = "MOCK BIKE1",
-                        numberOfGears = "",
-                        price = ""
-                    ), score = 0.5f
-                ),
-                Score(
-                    Bike(
-                        id = 0,
-                        weight = "",
-                        name = "MOCK BIKE2",
-                        numberOfGears = "",
-                        price = ""
-                    ), score = 0.5f
-                ),
-            )
+            scores.sortedByDescending(Score::score)
         )
     }
 }

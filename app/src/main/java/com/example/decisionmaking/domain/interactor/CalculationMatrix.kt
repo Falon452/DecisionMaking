@@ -18,7 +18,11 @@ class CalculationMatrix(private val size: Int) {
     fun changeValue(A:Int,B:Int,value:Float)
     {
         matrix[A][B] = value
-        matrix[B][A] = 1/value
+        if (value != 0f) {
+            matrix[B][A] = 1 / value
+        } else {
+            matrix[B][A] = 10f
+        }
         isNormalized = false
     }
     private fun normalize()

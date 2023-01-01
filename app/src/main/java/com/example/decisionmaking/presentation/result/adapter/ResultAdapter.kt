@@ -31,7 +31,7 @@ class ResultAdapter: ListAdapter<Score, BaseViewHolder<Score>>(
             val params = LinearLayout.LayoutParams(
                 0,
                 LayoutParams.WRAP_CONTENT,
-                0.5f
+                item.score,
             )
 //            val view = this@bind.root.findViewById(R.id.scoreTextView) as View
 //            view.layoutParams = params

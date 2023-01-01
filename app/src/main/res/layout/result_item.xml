@@ -21,6 +21,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:background="#7F00FF"/>
+        android:background="#00838f"/>
 
 </LinearLayout>

@@ -33,8 +33,8 @@ class MainAdapter: ListAdapter<Bike, BaseViewHolder<Bike>>(
         override fun ItemBinding.bind(item: Bike) {
             with(item) {
                 nameTextView.text = name
-                priceTextView.text = price
-                weightTextView.text = weight
+                priceTextView.text = price.plus("$")
+                weightTextView.text = weight.plus("kg")
                 gearsTextView.text = numberOfGears
             }
         }

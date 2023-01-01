@@ -36,8 +36,6 @@ class ResultFragment : Fragment(R.layout.fragment_result), ResultView{
     }
 
     override fun setResults(scores: List<Score>) {
-        scores.sortedBy(Score::score).also {
-            adapter.submitList(it)
-        }
+        adapter.submitList(scores)
     }
 }

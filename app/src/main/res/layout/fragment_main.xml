@@ -4,19 +4,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.input.ui.InputBikeFragment"
-    android:padding="8sp">
+    android:padding="8sp"
+    tools:context=".presentation.input.ui.InputBikeFragment">
 
     <TextView
         android:id="@+id/bikeTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Bikes"
         android:gravity="center"
+        android:layout_marginBottom="40dp"
+        android:text="Bikes"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:layout_constraintBottom_toTopOf="@id/bikeHeaderItem"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <include
+        android:id="@+id/bikeHeaderItem"
+        layout="@layout/item_bike_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintVertical_chainStyle="packed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/recyclerView"
+        app:layout_constraintTop_toBottomOf="@id/bikeTextView" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/bikeHeaderItem"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
@@ -24,11 +44,10 @@
         android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toTopOf="@id/addBikeButton"
-        app:layout_constraintTop_toBottomOf="@id/bikeTextView"
-        app:layout_constraintVertical_bias="0.32999998"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:layout_editor_absoluteX="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bikeHeaderItem"
+        app:layout_constraintVertical_bias="0.32999998"
         tools:listitem="@layout/item" />
 
     <Button
@@ -45,10 +64,9 @@
         android:id="@+id/divider"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/startQuestions"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addBikeButton"
-        app:layout_constraintBottom_toTopOf="@id/startQuestions"/>
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/startQuestions"
