@@ -3,7 +3,6 @@ package com.example.decisionmaking.presentation.question.viewmodel
 import com.example.decisionmaking.databinding.FragmentQuestionBinding
 import com.example.decisionmaking.domain.interactor.Calculator
 import com.example.decisionmaking.domain.interactor.Repository
-import com.example.decisionmaking.domain.model.Answer
 import com.example.decisionmaking.domain.model.FeatureType
 import com.example.decisionmaking.domain.model.Question
 import com.example.decisionmaking.presentation.question.viewmodel.QuestionContract.QuestionPresenter
@@ -69,7 +68,7 @@ internal class QuestionPresenter(
 
     private fun setNewQuestion() {
         view.unCheckAllRadioButtons()
-        view.setNewQuestion(currentQuestion.questionText)
         questionIndex++
+        view.setNewQuestion(currentQuestion.questionText)
     }
 }

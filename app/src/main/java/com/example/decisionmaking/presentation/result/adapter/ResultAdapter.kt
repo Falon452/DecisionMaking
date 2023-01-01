@@ -1,11 +1,9 @@
 package com.example.decisionmaking.presentation.result.adapter
 
-import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams
 import androidx.recyclerview.widget.ListAdapter
-import com.example.decisionmaking.R
 import com.example.decisionmaking.databinding.ResultItemBinding
 import com.example.decisionmaking.domain.model.Score
 import com.example.decisionmaking.presentation.util.BaseViewHolder
