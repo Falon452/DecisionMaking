@@ -1,5 +1,6 @@
 package com.example.decisionmaking.domain.interactor
 
+import android.util.Log
 import com.example.decisionmaking.domain.model.Answer
 import com.example.decisionmaking.domain.model.Bike
 import com.example.decisionmaking.domain.model.FeatureType
@@ -49,6 +50,7 @@ class Calculator(
         }
         //Shuffle questions
         questions.shuffle()
+        Log.d("info","All generated questions $questions")
         return questions
     }
 
@@ -76,19 +78,21 @@ class Calculator(
         val evaluatedScores = Array(bikes.size) { 0f }
 
         for (compMatrixInd in bikeComparisonsMatrixes.indices) {
+            Log.d("info","CompMatrix ${compMatrixInd}:  ${bikeComparisonsMatrixes[compMatrixInd]}")
             val localPriorities = bikeComparisonsMatrixes[compMatrixInd].extractPriorities()
             for (bikeInd in localPriorities.indices) {
                 evaluatedScores[bikeInd] += localPriorities[bikeInd] * featurePriorities[compMatrixInd]
             }
         }
-        val outputRanking = mutableListOf<Score>()
+        var outputRanking = mutableListOf<Score>()
         for (i in evaluatedScores.indices)
-            outputRanking.plus(
+            outputRanking = outputRanking.plus(
                 Score(
                     bike = bikes[i],
                     score = evaluatedScores[i]
                 )
-            )
+            ) as MutableList<Score>
+        Log.d("info","OutputRankings:  $outputRanking")
 
         return outputRanking.sortedBy(Score::score).toList()
     }

@@ -53,13 +53,7 @@ internal class QuestionPresenter(
             }
         }
         repo.addAnswer(
-            Answer(
-                score = score,
-                firstItemId = currentQuestion.firstItemId,
-                secondItemId = currentQuestion.secondItemId,
-                tableNumber = currentQuestion.tableNumber,
-                questionTarget = currentQuestion.questionTarget,
-            )
+            currentQuestion.createAnswer(score)
         )
 
         if (isLastQuestion()) {

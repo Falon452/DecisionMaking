@@ -18,7 +18,7 @@ class CalculationMatrix(private val size: Int) {
     fun changeValue(A:Int,B:Int,value:Float)
     {
         matrix[A][B] = value
-        matrix[B][A] = value
+        matrix[B][A] = 1/value
         isNormalized = false
     }
     private fun normalize()
@@ -34,7 +34,7 @@ class CalculationMatrix(private val size: Int) {
         }
         isNormalized=true
     }
-    public fun extractPriorities() : List<Float>
+    fun extractPriorities() : List<Float>
     {
         if(!isNormalized)
             normalize()
@@ -42,9 +42,21 @@ class CalculationMatrix(private val size: Int) {
         val priorities = mutableListOf<Float>();
         for(row in matrix)
         {
-            priorities.add(row.sum()/matrix.size);
+            priorities.add(row.sum()/matrix.size)
         }
         return priorities
+    }
+
+    override fun toString(): String {
+        var out ="\n["
+        for(row in matrix) {
+            out += "["
+            for (item in row)
+                out += "$item, "
+            out += "]\n"
+        }
+        out+="]\n"
+        return out
     }
 
 }
