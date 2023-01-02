@@ -34,17 +34,17 @@ internal class QuestionPresenter(
     override fun onNextQuestionClicked(binding: FragmentQuestionBinding) {
         val score = with(binding) {
             when (radioGroup.checkedRadioButtonId) {
-                scaleLeft5.id -> 0
-                scaleLeft4.id -> 1
-                scaleLeft3.id -> 2
+                scaleLeft5.id -> 6
+                scaleLeft4.id -> 5
+                scaleLeft3.id -> 4
                 scaleLeft2.id -> 3
-                scaleLeft1.id -> 4
-                scale0.id -> 5
-                scaleRight1.id -> 6
-                scaleRight2.id -> 7
-                scaleRight3.id -> 8
-                scaleRight4.id -> 9
-                scaleRight5.id -> 10
+                scaleLeft1.id -> 2
+                scale0.id -> 1
+                scaleRight1.id -> 1/2
+                scaleRight2.id -> 1/3
+                scaleRight3.id -> 1/4
+                scaleRight4.id -> 1/5
+                scaleRight5.id -> 1/6
                 else -> {
                     view.showToast("Please select scale")
                     return
