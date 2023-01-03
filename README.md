@@ -11,10 +11,31 @@ Implementation of AHP decision making method to compare bikes. Program consists 
 ## Architecture
 Calculator class generates questions and shuffles them. They're sent to gui and after answering to every one of them, list of Answer instances are retured to Calculator to  
 
+MVVM - Model - View - ViewModel
+Models:
+  Bike,
+  Question,
+  Answer,
+  Calculator (AHP method)
+Views:
+  MainFragment,
+  AddBikeFragment,
+  QuestionFragment,
+  ResultFragment,
+ViewModels:
+  MainViewModel
+  AddBikeViewModel,
+  QuestionViewModel,
+  ResultViewModel,
+
 ## Installation
 
-## Testing
+- Clone project, and run in Android studio 
+- Download [APK and install on your phone](https://drive.google.com/file/d/15fOa1zNaPnC8Ac-RPuP396TVnq_2_jky/view?usp=share_link)
+
+## Testing 
 Manual testing.
+- [**DEMO**](https://drive.google.com/file/d/1WQ6eCBnWR_yBEBNP_QvQJgtvvaP8QEsO/view?usp=share_link)
 
 ## Possible further development
 Adding more/custom features would generify project to apply it in different fields than only bikes.
