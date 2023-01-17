@@ -11,10 +11,11 @@ import com.example.decisionmaking.domain.model.Score
 
 class Calculator(
     private var featuresToCompare: List<FeatureType>,
-    private val bikes: List<Bike>
+    private val bikes: List<Bike>,
+    private val agentsNumber: Int
 ) {
 
-    fun getQuestions(): List<Question> {
+    fun getQuestions(agentId:Int): List<Question> {
         val questions = mutableListOf<Question>()
 
         //Features questions generation
@@ -22,7 +23,7 @@ class Calculator(
             for (j in 0 until i) {
                 questions.add(
                     Question(
-                        i, j, 0,
+                        i, j, 0, agentId,
                         QuestionTextGenerator.generateFeatureQuestion(
                             featuresToCompare[i],
                             featuresToCompare[j]
@@ -37,7 +38,7 @@ class Calculator(
                 for (bike2Ind in 0 until bike1Ind) {
                     questions.add(
                         Question(
-                            bike1Ind, bike2Ind, i,
+                            bike1Ind, bike2Ind, i, agentId,
                             QuestionTextGenerator.generateItemFeatureQuestion(
                                 featuresToCompare[i],
                                 bikes[bike1Ind],
@@ -53,47 +54,62 @@ class Calculator(
         Log.d("info","All generated questions $questions")
         return questions
     }
+    /* Answer order is irrelevant, although they should be grouped by agents in theirs id order */
+    fun calculate(answers: List<List<Answer>>): List<Score> {
+        val featureMatrix = List(agentsNumber){ i-> CalculationMatrix(featuresToCompare.size)}
+        val bikeComparisonsMatrixes: List<Array<CalculationMatrix>> =
+            List(agentsNumber){ i-> Array(featuresToCompare.size) { CalculationMatrix(bikes.size) }}
 
-    fun calculate(answers: List<Answer>): List<Score> {
-        val featureMatrix = CalculationMatrix(featuresToCompare.size)
-        val bikeComparisonsMatrixes: Array<CalculationMatrix> =
-            Array(featuresToCompare.size) { CalculationMatrix(bikes.size) }
-
-        for (ans in answers) {
-            when (ans.questionTarget) {
-                QuestionTarget.ITEMS -> bikeComparisonsMatrixes[ans.tableNumber].changeValue(
-                    ans.firstItemId,
-                    ans.secondItemId,
-                    ans.score.toFloat()
-                )
-                QuestionTarget.FEATURES -> featureMatrix.changeValue(
-                    ans.firstItemId,
-                    ans.secondItemId,
-                    ans.score.toFloat()
-                )
+        for (agent in 0..agentsNumber) {
+            for (ans in answers[agent]) {
+                when (ans.questionTarget) {
+                    QuestionTarget.ITEMS -> bikeComparisonsMatrixes[agent][ans.tableNumber].changeValue(
+                        ans.firstItemId,
+                        ans.secondItemId,
+                        ans.score.toFloat()
+                    )
+                    QuestionTarget.FEATURES -> featureMatrix[agent].changeValue(
+                        ans.firstItemId,
+                        ans.secondItemId,
+                        ans.score.toFloat()
+                    )
+                }
             }
         }
-
-        val featurePriorities = featureMatrix.extractPriorities()
-        val evaluatedScores = Array(bikes.size) { 0f }
-
-        for (compMatrixInd in bikeComparisonsMatrixes.indices) {
-            Log.d("info","CompMatrix ${compMatrixInd}:  ${bikeComparisonsMatrixes[compMatrixInd]}")
-            val localPriorities = bikeComparisonsMatrixes[compMatrixInd].extractPriorities()
-            for (bikeInd in localPriorities.indices) {
-                evaluatedScores[bikeInd] += localPriorities[bikeInd] * featurePriorities[compMatrixInd]
-            }
-        }
+        val featurePriorities = List(agentsNumber){ i-> featureMatrix[i].extractPriorities()}
         var outputRanking = mutableListOf<Score>()
-        for (i in evaluatedScores.indices)
+        val evaluatedScores = List(agentsNumber){ i -> Array(bikes.size) { 0f }}
+
+            for (agents in 0..agentsNumber) {
+                for (compMatrixInd in bikeComparisonsMatrixes[agents].indices) {
+                    Log.d(
+                        "info",
+                        "CompMatrix ${compMatrixInd}:  ${bikeComparisonsMatrixes[agents][compMatrixInd]}"
+                    )
+                    val localPriorities = bikeComparisonsMatrixes[agents][compMatrixInd].extractPriorities()
+                    for (bikeInd in localPriorities.indices) {
+                        evaluatedScores[agents][bikeInd] += localPriorities[bikeInd] * featurePriorities[agents][compMatrixInd]
+                    }
+                }
+
+            }
+
+        //AIP aggregation -> geometric and arithmetic mean is usable.
+        // here arithmetic
+        for (bikeId in 0..bikes.size) {
+            var tmpScore =0f
+            evaluatedScores.forEach(){
+                tmpScore += it[bikeId]
+            }
+            tmpScore /= agentsNumber
             outputRanking = outputRanking.plus(
                 Score(
-                    bike = bikes[i],
-                    score = evaluatedScores[i]
+                    bike = bikes[bikeId],
+                    score = tmpScore
                 )
             ) as MutableList<Score>
-        Log.d("info","OutputRankings:  $outputRanking")
-
+        }
+        Log.d("info", "OutputRankings:  $outputRanking")
         return outputRanking.sortedBy(Score::score).toList()
     }
 }
