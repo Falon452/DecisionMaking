@@ -1,7 +1,6 @@
 package com.example.decisionmaking.presentation.question
 
 import android.os.Bundle
-import android.provider.ContactsContract.Data
 import android.view.View
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -13,7 +12,6 @@ import com.example.decisionmaking.presentation.question.viewmodel.QuestionContra
 import com.example.decisionmaking.presentation.question.viewmodel.QuestionContract.QuestionView
 import com.example.decisionmaking.presentation.question.viewmodel.QuestionPresenter
 import com.example.decisionmaking.presentation.util.viewBinding
-import java.time.Duration
 
 class QuestionFragment : Fragment(R.layout.fragment_question), QuestionView {
 
@@ -24,7 +22,6 @@ class QuestionFragment : Fragment(R.layout.fragment_question), QuestionView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         binding.nextQuestionButton.setOnClickListener {
             presenter.onNextQuestionClicked(binding)
         }
@@ -43,8 +40,8 @@ class QuestionFragment : Fragment(R.layout.fragment_question), QuestionView {
         binding.radioGroup.clearCheck()
     }
 
-    override fun navigateToResult() {
-        findNavController().navigate(QuestionFragmentDirections.navigateToResult())
+    override fun navigateUp() {
+        findNavController().navigateUp()
     }
 
 }

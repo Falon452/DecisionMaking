@@ -1,22 +1,22 @@
 package com.example.decisionmaking.presentation.main.router
 
 import androidx.navigation.NavController
-import com.example.decisionmaking.presentation.main.ui.MainFragmentDirections
+import com.example.decisionmaking.presentation.main.ui.BikeFragmentDirections
 
-internal class MainRouter(
+internal class BikeRouter(
     private val navController: NavController
 ) {
 
     fun navigateToInputBike() {
         navController.navigate(
-            MainFragmentDirections.navigateToInputBikeFragment()
+            BikeFragmentDirections.navigateToInputBike()
         )
 
     }
 
-    fun navigateToQuestions() {
+    fun navigateToAgents() {
         navController.navigate(
-            MainFragmentDirections.navigateToQuestionsFragment()
+            BikeFragmentDirections.navigateToAgents()
         )
     }
 }

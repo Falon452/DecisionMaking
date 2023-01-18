@@ -3,21 +3,37 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/MainFragment">
+    app:startDestination="@id/BikeFragment">
 
     <fragment
-        android:id="@+id/MainFragment"
-        android:name="com.example.decisionmaking.presentation.main.ui.MainFragment"
+        android:id="@+id/BikeFragment"
+        android:name="com.example.decisionmaking.presentation.main.ui.BikeFragment"
         android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_main">
+        tools:layout="@layout/fragment_bikes">
 
         <action
-            android:id="@+id/navigateToInputBikeFragment"
+            android:id="@+id/navigateToAgents"
+            app:destination="@id/AgentFragment" />
+
+        <action
+            android:id="@+id/navigateToInputBike"
             app:destination="@id/InputBikeFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/AgentFragment"
+        android:name="com.example.decisionmaking.presentation.agent.ui.AgentFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_add_agent">
 
         <action
             android:id="@+id/navigateToQuestionsFragment"
             app:destination="@id/QuestionsFragment" />
+
+        <action
+            android:id="@+id/navigateToResult"
+            app:destination="@id/ResultFragment" />
 
     </fragment>
 
@@ -29,9 +45,6 @@
         android:id="@+id/QuestionsFragment"
         android:name="com.example.decisionmaking.presentation.question.QuestionFragment">
 
-        <action
-            android:id="@+id/navigateToResult"
-            app:destination="@+id/ResultFragment" />
     </fragment>
 
     <fragment

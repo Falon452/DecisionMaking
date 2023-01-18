@@ -3,6 +3,7 @@ package com.example.decisionmaking.presentation.question.viewmodel
 import com.example.decisionmaking.databinding.FragmentQuestionBinding
 import com.example.decisionmaking.domain.interactor.Calculator
 import com.example.decisionmaking.domain.interactor.Repository
+import com.example.decisionmaking.domain.model.Agent
 import com.example.decisionmaking.domain.model.FeatureType
 import com.example.decisionmaking.domain.model.Question
 import com.example.decisionmaking.presentation.question.viewmodel.QuestionContract.QuestionPresenter
@@ -13,15 +14,25 @@ internal class QuestionPresenter(
 ) : QuestionPresenter {
 
     private lateinit var view: QuestionContract.QuestionView
+
+    private val agents: List<Agent>? = repo.getAgents().also {
+        println("DAMIAN $it")
+        it?.forEach {
+            println("DAMIAN $it")
+        }
+    }
+
     private val calculator = Calculator(
         listOf(
             FeatureType.WEIGHT,
             FeatureType.PRICE,
             FeatureType.GEARS,
-        ),
-        bikes = repo.getBikes() ?: emptyList()
+        ), bikes = repo.getBikes() ?: emptyList(), agentsNumber = agents?.size ?: 0
     )
-    private val questions: List<Question> = calculator.getQuestions()
+    private val selectedAgent = agents?.first(Agent::isSelected) ?: throw IllegalStateException()
+    private val questions: List<Question> = calculator.getQuestions(selectedAgent.id)
+
+
     private var questionIndex = 0
     private val currentQuestion: Question
         get() = questions[questionIndex]
@@ -40,11 +51,11 @@ internal class QuestionPresenter(
                 scaleLeft2.id -> 3
                 scaleLeft1.id -> 2
                 scale0.id -> 1
-                scaleRight1.id -> 1/2
-                scaleRight2.id -> 1/3
-                scaleRight3.id -> 1/4
-                scaleRight4.id -> 1/5
-                scaleRight5.id -> 1/6
+                scaleRight1.id -> 1 / 2
+                scaleRight2.id -> 1 / 3
+                scaleRight3.id -> 1 / 4
+                scaleRight4.id -> 1 / 5
+                scaleRight5.id -> 1 / 6
                 else -> {
                     view.showToast("Please select scale")
                     return
@@ -56,14 +67,23 @@ internal class QuestionPresenter(
         )
 
         if (isLastQuestion()) {
-            view.navigateToResult()
+            val newAgents = agents?.map {
+                if (it == selectedAgent) {
+                    it.copy(
+                        finishedQuestions = true
+                    )
+                } else it
+            }
+            if (newAgents != null) {
+                repo.replaceAgents(newAgents)
+            }
+            view.navigateUp()
         } else {
             setNewQuestion()
         }
     }
 
-    private fun isLastQuestion(): Boolean =
-        questions.size - 1 == questionIndex
+    private fun isLastQuestion(): Boolean = questions.size - 1 == questionIndex
 
 
     private fun setNewQuestion() {

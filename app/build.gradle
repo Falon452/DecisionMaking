@@ -60,6 +60,7 @@ dependencies {
 
     // live data transformations
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.1"
+    implementation "org.jetbrains.kotlin:kotlin-script-runtime:1.7.10"
 
 
 }

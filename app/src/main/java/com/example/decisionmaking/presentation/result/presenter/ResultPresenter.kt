@@ -15,7 +15,7 @@ import com.example.decisionmaking.presentation.result.ui.ResultContract.ResultVi
 class ResultPresenter(private val repo: Repository) : ResultPresenter {
 
     private lateinit var view: ResultView
-
+    val numberOfAgents = checkNotNull(repo.getAgents()).size
     private val calculator = Calculator(
         listOf(
             FeatureType.WEIGHT,
@@ -23,12 +23,17 @@ class ResultPresenter(private val repo: Repository) : ResultPresenter {
             FeatureType.GEARS,
         ),
         bikes = repo.getBikes().orEmpty(),
+        agentsNumber = numberOfAgents,
     )
 
     override fun setView(view: ResultView) {
         this.view = view
-        val answers = repo.getAnswers().orEmpty()
-        val scores = calculator.calculate(answers)
+        val answers: List<Answer> = repo.getAnswers().orEmpty()
+        val listOfAnswers = mutableListOf<List<Answer>>()
+        for (i in 1..numberOfAgents) {
+            listOfAnswers.add(answers.filter{it.agentId == i})
+        }
+        val scores = calculator.calculate(listOfAnswers)
         view.setResults(
             scores.sortedByDescending(Score::score)
         )

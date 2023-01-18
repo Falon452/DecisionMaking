@@ -2,33 +2,31 @@ package com.example.decisionmaking.presentation.main.ui
 
 import android.os.Bundle
 import android.view.View
-import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.decisionmaking.R
-import com.example.decisionmaking.databinding.FragmentMainBinding
-import com.example.decisionmaking.domain.model.BikeType
-import com.example.decisionmaking.presentation.main.adapter.MainAdapter
-import com.example.decisionmaking.presentation.input.viewmodel.InputBikeViewModel
-import com.example.decisionmaking.presentation.main.router.MainRouter
-import com.example.decisionmaking.presentation.main.viewmodel.MainViewModel
+import com.example.decisionmaking.databinding.FragmentBikesBinding
+import com.example.decisionmaking.presentation.agent.adapter.AgentAdapter
+import com.example.decisionmaking.presentation.main.adapter.BikeAdapter
+import com.example.decisionmaking.presentation.main.router.BikeRouter
+import com.example.decisionmaking.presentation.main.viewmodel.AgentViewModel
+import com.example.decisionmaking.presentation.main.viewmodel.BikeViewModel
 import com.example.decisionmaking.presentation.ui.Injector
 import com.example.decisionmaking.presentation.util.viewBinding
-import kotlinx.coroutines.flow.onEach
 
 
-class MainFragment : Fragment(R.layout.fragment_main) {
+class BikeFragment : Fragment(R.layout.fragment_bikes) {
 
-    private val binding by viewBinding(FragmentMainBinding::bind)
+    private val binding by viewBinding(FragmentBikesBinding::bind)
     private val recyclerAdapter by lazy {
-        MainAdapter()
+        BikeAdapter()
     }
-    private val viewModel: MainViewModel by viewModels {
-        Injector.MainViewModel
+    private val viewModel: BikeViewModel by viewModels {
+        Injector.BikeViewModel
     }
-    private val router by lazy {
-        MainRouter(findNavController())
+    private val router: BikeRouter by lazy {
+        BikeRouter(findNavController())
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -51,6 +49,11 @@ class MainFragment : Fragment(R.layout.fragment_main) {
         viewModel.state.observe(viewLifecycleOwner) {
             recyclerAdapter.submitList(it)
         }
+        viewModel.agents.observe(viewLifecycleOwner) { it ->
+            if (it != null)
+                binding.addBikeButton.isEnabled = it.all { !it.finishedQuestions }
+        }
+
     }
 
     private fun setListeners() {
@@ -58,7 +61,7 @@ class MainFragment : Fragment(R.layout.fragment_main) {
             addBikeButton.setOnClickListener {
                 viewModel.onAddButtonClicked(router)
             }
-            startQuestions.setOnClickListener {
+            goToAgents.setOnClickListener {
                 viewModel.onStartClicked(router)
             }
         }

@@ -60,7 +60,7 @@ class Calculator(
         val bikeComparisonsMatrixes: List<Array<CalculationMatrix>> =
             List(agentsNumber){ i-> Array(featuresToCompare.size) { CalculationMatrix(bikes.size) }}
 
-        for (agent in 0..agentsNumber) {
+        for (agent in 0 until agentsNumber) {
             for (ans in answers[agent]) {
                 when (ans.questionTarget) {
                     QuestionTarget.ITEMS -> bikeComparisonsMatrixes[agent][ans.tableNumber].changeValue(
@@ -80,7 +80,7 @@ class Calculator(
         var outputRanking = mutableListOf<Score>()
         val evaluatedScores = List(agentsNumber){ i -> Array(bikes.size) { 0f }}
 
-            for (agents in 0..agentsNumber) {
+            for (agents in 0 until agentsNumber) {
                 for (compMatrixInd in bikeComparisonsMatrixes[agents].indices) {
                     Log.d(
                         "info",
@@ -96,7 +96,7 @@ class Calculator(
 
         //AIP aggregation -> geometric and arithmetic mean is usable.
         // here arithmetic
-        for (bikeId in 0..bikes.size) {
+        for (bikeId in bikes.indices) {
             var tmpScore =0f
             evaluatedScores.forEach(){
                 tmpScore += it[bikeId]

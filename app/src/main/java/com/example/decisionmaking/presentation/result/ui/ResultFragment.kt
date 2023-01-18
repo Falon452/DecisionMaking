@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import com.example.decisionmaking.R
-import com.example.decisionmaking.databinding.FragmentMainBinding
 import com.example.decisionmaking.databinding.FragmentResultBinding
 import com.example.decisionmaking.di.DataDI
 import com.example.decisionmaking.domain.model.Score

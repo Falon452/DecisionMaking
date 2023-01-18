@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.example.decisionmaking.domain.interactor.Repository
 import com.example.decisionmaking.domain.model.Bike
-import com.example.decisionmaking.presentation.main.ui.MainFragmentDirections
 
 internal class InputBikeViewModel(
     val repo: Repository,

@@ -16,6 +16,6 @@ interface QuestionContract {
         fun unCheckAllRadioButtons()
         fun setNewQuestion(text: String)
         fun showToast(text: String)
-        fun navigateToResult()
+        fun navigateUp()
     }
 }
