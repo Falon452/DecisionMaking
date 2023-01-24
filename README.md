@@ -9,24 +9,9 @@
 Implementation of AHP decision making method to compare bikes. Program consists of interface to add bikes and answer generated questions (valuating alternatives). Method compares different bikes on their **weight**, number of **gears** and **price**. After calculations ranking with each item is shown.
 
 ## Architecture
-Calculator class generates questions and shuffles them. They're sent to gui and after answering to every one of them, list of Answer instances are returned to Calculator in order to calculate final ranking.
 
-MVVM - Model - View - ViewModel
-
-Models:
-
--   Bike,
-  Question,
-  Answer,
-  Calculator (AHP method)
-  
-Views:
-
-  - MainFragment, AddBikeFragment, QuestionFragment, ResultFragment,
-  
-ViewModels:
-
-   - MainViewModel, AddBikeViewModel, QuestionViewModel, ResultViewModel,
+This is high overview of architecture used:
+<img width="1309" alt="image" src="https://user-images.githubusercontent.com/64365037/214445863-d100be5f-ef96-4054-a331-d526b02cae31.png">
 
 ## Installation
 
