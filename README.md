@@ -1,4 +1,4 @@
-# Choose the best bike to buy!
+# Choose best bike to buy with multiple experts.
 
 ## Authors
 
@@ -6,7 +6,7 @@
 2. Łukasz Zając
 
 ## Description
-Implementation of AHP decision making method to compare bikes. Program consists of interface to add bikes and answer generated questions (valuating alternatives). Method compares different bikes on their **weight**, number of **gears** and **price**. After calculations ranking with each item is shown.
+Implementation of AHP decision making method to compare bikes. Program consists of UI interface to add your bikes and multiple agents, then answer generated questions (valuating alternatives). Method compares different bikes on their **weight**, number of **gears** and **price**. After calculations ranking with each item is shown.
 
 ## Architecture
 
