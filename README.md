@@ -10,8 +10,14 @@ Implementation of AHP decision making method to compare bikes. Program consists 
 
 ## Architecture
 
-This is high overview of architecture used:
+This is overview of architecture used:
 <img width="1309" alt="image" src="https://user-images.githubusercontent.com/64365037/214445863-d100be5f-ef96-4054-a331-d526b02cae31.png">
+Idea of architecutre:
+- Fragments hold UI stuff, but contain minimum amount of logic required.
+- Viewmodel/Presenter are the ones, that controls Fragment and what is presented
+- Repository is used by Viewmodels/Presenter to store global information
+- Calculator can generate questions required for him to work and expects answers to calculate the final result.
+
 
 ## Installation
 
