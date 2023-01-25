@@ -29,7 +29,6 @@ Idea of architecutre:
 
 ## Testing 
 Manual testing.
-- [**DEMO**](https://drive.google.com/file/d/1WQ6eCBnWR_yBEBNP_QvQJgtvvaP8QEsO/view?usp=share_link)
 
 ## Possible further development
 - Adding more/custom features would generify project to apply it in different fields than only bikes.
